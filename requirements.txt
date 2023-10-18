@@ -18,4 +18,3 @@ numpy
 pandas
 matplotlib
 seaborn
-polars
