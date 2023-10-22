@@ -4,7 +4,7 @@ use std::error::Error;
 use std::fs::File;
 use csv::ReaderBuilder;
 use std::time::Instant;
-use Week08_YL::calculate_median;
+use week08_YL::calculate_median;
 use sys_info::mem_info;
 use std::process::Command;
 use std::println;
