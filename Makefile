@@ -1,12 +1,26 @@
-install:
+format:
+	cargo fmt --quiet
+
+lint:
+	cargo clippy --quiet
+
+test:
+	cargo test --quiet
+
+run:
+	cargo run 
+
+all: format lint test run
+
+python_install:
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
 
-format:
+python_format:
 	black *.py
 
-lint:
-	pylint --disable=R,C --ignore-patterns=test_.*?py *.py
+python_lint:
+	ruff check *.py mylib/*.py
 
-test:
-	python -m pytest -vv --cov=main test_*.py
+python_test:
+	python -m pytest -vv --cov=main --cov=mylib test_*.py

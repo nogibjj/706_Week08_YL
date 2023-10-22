@@ -16,5 +16,4 @@ uvicorn
 ## data science
 numpy
 pandas
-matplotlib
-seaborn
+psutil
