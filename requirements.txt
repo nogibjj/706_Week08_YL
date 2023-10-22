@@ -5,13 +5,12 @@ pytest
 pytest-cov
 pylint==2.15.3
 
+fastapi
+uvicorn
+
 #rust based linter
 ruff
 boto3
-
-#web
-fastapi
-uvicorn
 
 ## data science
 numpy

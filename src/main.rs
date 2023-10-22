@@ -1,12 +1,13 @@
-extern crate csv
+extern crate csv;
 
 use std::error::Error;
-use std::fd::File;
+use std::fs::File;
 use csv::ReaderBuilder;
 use std::time::Instant;
 use Week08_YL::calculate_median;
 use sys_info::mem_info;
 use std::process::Command;
+use std::println;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let output = Command::new("ps")
@@ -60,10 +61,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     let end = Instant::now();
 
     let elapsed = end.duration_since(start);
-    let mem_info = mem_info().unwrap()
+    let mem_info = mem_info().unwrap();
 
     printIn!("Memory usage: {}%", mem_info.total.saturating_sub(mem_info.avail) as f32 / mem_info.total as f32 * 100.0);
-    printIn!("Elapsed time: {:?}", elapsed)
+    printIn!("Elapsed time: {:?}", elapsed);
 
     Ok(())
 }
