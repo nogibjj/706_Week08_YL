@@ -7,8 +7,6 @@ use std::time::Instant;
 use week08_yl::calculate_median;
 use sys_info::mem_info;
 use std::process::Command;
-use std::printIn;
-use std::io::Read;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let output = Command::new("ps")
@@ -18,26 +16,28 @@ fn main() -> Result<(), Box<dyn Error>> {
         .arg(format!("{}", std::process::id()))
         .output()
         .expect("Failed to execute ps command");
-    
+
     let usage = String::from_utf8_lossy(&output.stdout);
-    let lines: Vec<&str> = usage.split("\n").collect();
-    if lines.len() >=2 {
+    let lines: Vec<&str> = usage.split('\n').collect();
+    if lines.len() >= 2 {
         let usage_str = lines[1].trim();
         let usage_float: Result<f32, _> = usage_str.parse();
         match usage_float {
-            Ok(usage) => printIn!("CPU Usage: {:.2}%", usage),
-            Err(_) => printIn!("Failed to parse CPU usage"),
+            Ok(usage) => println!("CPU Usage: {:.2}%", usage),
+            Err(_) => println!("Failed to parse CPU usage"),
         }
     } else {
-        printIn!("Failed to get CPU usage");
+        println!("Failed to get CPU usage");
     }
-    let start = Instant::now();
-    let csv_file = "top25komapseriesindex.csv";
-    let file = File::open(csv_file);
-    
-    // create a csv reader
+    // Record the start time
+    let start_time = Instant::now();
+    // Load the CSV file
+    let csv_file = "25ktopomapseriesindex.csv"; // Update with your CSV file path
+    let file = File::open(csv_file)?;
+
+    // Create a CSV reader
     let mut rdr = ReaderBuilder::new()
-        .delimiter(b",")
+        .delimiter(b',')
         .has_headers(true)
         .from_reader(file);
 
@@ -46,26 +46,28 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     for result in rdr.records() {
         let record = result?;
-        let shape_leng: f64 = record[2].parse()?;
-        let shape_area: f64 = record[3].parse()?;
+        let shape_leng: f64 = record[2].parse()?; // Change index to match your data
+        let shape_area: f64 = record[3].parse()?; // Change index to match your data
         shape_leng_values.push(shape_leng);
         shape_area_values.push(shape_area);
     }
 
-    // Calculate & print medians
+    // Calculate and print the medians
     let shape_leng_median = calculate_median(&shape_leng_values);
     let shape_area_median = calculate_median(&shape_area_values);
 
-    printIn!("Shape_Leng median: {}", shape_leng_median);
-    printIn!("Shape_Area median: {}", shape_area_median);
+    println!("Shape_Leng Median: {}", shape_leng_median);
+    println!("Shape_Area Median: {}", shape_area_median);
 
-    let end = Instant::now();
+    let end_time = Instant::now();
 
-    let elapsed = end.duration_since(start);
+    // Calculate the elapsed time and resource usage
+    let elapsed_time = end_time.duration_since(start_time);
     let mem_info = mem_info().unwrap();
 
-    printIn!("Memory usage: {}%", mem_info.total.saturating_sub(mem_info.avail) as f32 / mem_info.total as f32 * 100.0);
-    printIn!("Elapsed time: {:?}", elapsed);
+    println!("Memory Usage: {}%", mem_info.total.saturating_sub(mem_info.avail) as f32 / mem_info.total as f32 * 100.0);
+    println!("Elapsed time: {:?}", elapsed_time);
+    // println!("Memory usage: {} bytes", std::mem::size_of::<f64>());
 
     Ok(())
 }

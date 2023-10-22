@@ -1,3 +1,4 @@
+#[cfg(test)]
 mod tests {
     use week08_yl::calculate_median;
 
