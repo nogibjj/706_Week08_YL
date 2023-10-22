@@ -46,7 +46,11 @@ The workflow and logic is very similar to Python. Rust reads data from the csv f
 To calculate CPU usage and memory usage, I used `psutil.cpu_percent()` and `psutil.virtual_memory()` respectively.
 
 For Python script,
+![Alt text](figures/python_usage.png)
+For Rust script,
+![Alt text](figures/rust_usage.png)
 
+From the result, we see the outputs are the same, but the CPU usage and running time of Rust are way more lower then Python. The reason is Rust is a statically compiled language. The code is compiled into machine code before execution.
 
 ## Check format & errors
 
