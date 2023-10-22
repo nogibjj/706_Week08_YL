@@ -4,10 +4,9 @@ use std::error::Error;
 use std::fs::File;
 use csv::ReaderBuilder;
 use std::time::Instant;
-use week08_YL::calculate_median;
+use week08_yl::calculate_median;
 use sys_info::mem_info;
 use std::process::Command;
-use std::println;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let output = Command::new("ps")

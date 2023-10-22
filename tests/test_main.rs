@@ -1,5 +1,5 @@
 mod tests {
-    use week08_YL::calculate_median;
+    use week08_yl::calculate_median;
 
     fn test_calculate_median_odd() {
         let values = vec![1.0, 2.0, 3.0, 4.0, 5.0];
