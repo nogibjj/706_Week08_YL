@@ -7,6 +7,8 @@ use std::time::Instant;
 use week08_yl::calculate_median;
 use sys_info::mem_info;
 use std::process::Command;
+use std::printIn;
+use std::io::Read;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let output = Command::new("ps")
@@ -55,7 +57,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let shape_area_median = calculate_median(&shape_area_values);
 
     printIn!("Shape_Leng median: {}", shape_leng_median);
-    printIn("Shape_Area median: {}", shape_area_median);
+    printIn!("Shape_Area median: {}", shape_area_median);
 
     let end = Instant::now();
 
